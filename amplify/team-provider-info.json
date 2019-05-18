@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "tagventure-dev-20190518150037-authRole",
+            "UnauthRoleArn": "arn:aws:iam::243333951079:role/tagventure-dev-20190518150037-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::243333951079:role/tagventure-dev-20190518150037-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "tagventure-dev-20190518150037-deployment",
+            "UnauthRoleName": "tagventure-dev-20190518150037-unauthRole",
+            "StackName": "tagventure-dev-20190518150037",
+            "StackId": "arn:aws:cloudformation:us-east-2:243333951079:stack/tagventure-dev-20190518150037/6070f670-79b8-11e9-8b26-0a1513ed47e4"
+        },
+        "categories": {
+            "auth": {
+                "cognito4f42605c": {}
+            }
+        }
+    }
+}
