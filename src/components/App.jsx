@@ -1,4 +1,5 @@
 import React from 'react';
+import MyMapComponent from './Map.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,8 +13,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        Hello TagVenture
+        <div>
+          Hello TagVenture
+        </div>
+        <div>
+          <MyMapComponent />
+        </div>
       </div>
+
     )
   }
 }
