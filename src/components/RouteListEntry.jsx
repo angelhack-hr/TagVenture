@@ -1,5 +1,6 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
+import { css } from 'glamor';
 
 class RouteListEntry extends React.PureComponent {
   getStatus() {
@@ -8,22 +9,67 @@ class RouteListEntry extends React.PureComponent {
 
   render() {
     return (
-      <div className="route-list-entry" key={this.props.routeData.routeId}>
-        <div className="route-header">
-          <p>{this.props.routeData.routeName}</p>
-          <input type="submit" value={this.getStatus()} />
+      <div {...css(styles.routeListEntry)} key={this.props.routeData.routeId}>
+        <div {...css(styles.routeHeader)}>
+          {this.props.routeData.routeName}
+          <input 
+            {...css(styles.button)}
+            type="submit"
+            value={this.getStatus()} 
+          />
         </div>
-        <div className="ratings">
+        <div {...css(styles.ratings)}>
           <StarRatings 
             rating={this.props.routeData.rating}
-            starRatedColor="#ea1414"
+            starRatedColor="#4CAF50"
+            starDimension="25px"
+            starSpacing="1px"
             changeRating={this.changeRating}
           />
-          <p>{this.props.routeData.rating} stars</p>
+          <p {...css(styles.star)}>{this.props.routeData.rating} stars</p>
         </div>
-        <p>{this.props.routeData.completionRate}% Completion Rate</p>
+        <p {...css(styles.completion)}>{this.props.routeData.completionRate}% Completion Rate</p>
       </div>
     )
+  }
+}
+
+const styles = {
+  routeListEntry: {
+    backgroundColor: '#ebebeb80',
+    borderRadius: '3px',
+    height: '80px',
+    margin: '5px',
+    padding: '10px',
+    width: '200px'
+  },
+  routeHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  ratings: {
+    display: 'flex',
+    flexDirection: 'row',
+    fontSize: '12px',
+    marginTop: '5px'
+  },
+  star: {
+    marginLeft: '5px'
+  },
+  completion: {
+    fontSize:'14px',
+    margin: '0px'
+  },
+  button: {
+    padding: '1px 5px',
+    backgroundColor: '#ddd',
+    cursor: 'pointer',
+    borderRadius: '3px',
+    ':hover': {
+      backgroundColor: '#ededed'
+    },
+    textAlign: 'center'
   }
 }
 
