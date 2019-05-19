@@ -14,6 +14,12 @@ const testData = [
         title:"second checkpoint",
         latitude: 37.785347,
         longitude: -122.402382
+      },
+      {
+        id: 300,
+        title:"third checkpoint",
+        latitude: 37.795347,
+        longitude: -122.412382
       }
       ]
 
