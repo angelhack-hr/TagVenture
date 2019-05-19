@@ -3,6 +3,26 @@ import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
 let message = "You are not at this location";
+let x = 37.787799;
+let y = -122.410344;
+
+let radiusHelper = (lon1, lat1, lon2, lat2) => {
+  let toRad = (val) => {
+    /** Converts numeric degrees to radians */
+    return val * Math.PI / 180;
+  }
+
+  let R = 6371; // Radius of the earth in km
+  let dLat = toRad(lat2-lat1);  // Javascript functions in radians
+  let dLon = toRad(lon2-lon1); 
+  let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2); 
+  let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  let d = R * c; // Distance in km
+  console.log("firing", d);
+  return d;
+}
 
 const MapComponent = compose(
   withProps({
@@ -25,10 +45,10 @@ const MapComponent = compose(
       title={marker.title}
       position={{ lat: marker.latitude, lng: marker.longitude }}
       key={marker.id}
-      onClick={props.onMarkerClick}
+      onClick={props.handleMarkerClick}
     />
   ))}
- {props.isMarkerShown && <Marker position={props.userLocation} />}
+ 
   </GoogleMap>
 );
 
@@ -58,7 +78,8 @@ export default class MyMapComponent extends React.PureComponent {
       }
       ],
       loading: false,
-      userLocation: { lat: 32, lng: 32 }
+      userLocation: { lat: 32, lng: 32 },
+      present: false
 
     };
   }
@@ -67,12 +88,17 @@ export default class MyMapComponent extends React.PureComponent {
     //this.delayedShowMarker()
     navigator.geolocation.getCurrentPosition(
       position => {
+
         const { latitude, longitude } = position.coords;
-        
+        this.confirmCheckpoint(longitude, latitude)
+
         this.setState({
           userLocation: { lat: latitude, lng: longitude },
           loading: false
         });
+
+       
+       
       },
       () => {
         this.setState({ loading: false });
@@ -86,24 +112,31 @@ export default class MyMapComponent extends React.PureComponent {
   //   }, 3000)
   // }
 
-  handleMarkerClick() {
-    console.log('ping')
-    alert(message)
-    this.setState({ isMarkerShown: false })
-    //this.delayedShowMarker()
+  confirmCheckpoint(lat2, lng2) {
+    let dist = radiusHelper(y, x, lat2, lng2)
+
+    // if(dist < 1.5) {
+    //   this.handleMarkerClick = (e) => {
+        
+    //   }
+    // }
+
   }
 
-  isAtCheckpoint() {
-
+  handleMarkerClick (e) {
+    console.log(e)
   }
+
 
   render() {
     return (
       <MapComponent
+        key={99}
         isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick.bind(this)}
         markers={this.state.markers}
-        userLocation={this.state.userLocation}
+        userLocation={this.state.userLocation} 
+        confirmCheckpoint={this.confirmCheckpoint.bind(this)}  
+        handleMarkerClick={this.handleMarkerClick.bind(this)}
       />
     )
   }
