@@ -59,15 +59,21 @@ export default class MyMapComponent extends React.PureComponent {
       markers: [
       {
         id: 100,
-        title:"first checkpoint",
+        title:"Galvanize",
         latitude: 37.787799,
         longitude: -122.396595
       },
       {
         id: 200,
-        title:"second checkpoint",
+        title:"Yerba Buena Gardens",
         latitude: 37.785347,
         longitude: -122.402382
+      },
+      {
+        id: 300,
+        title:"Chinatown",
+        latitude: 37.795347,
+        longitude: -122.412382
       }
       ]
 
