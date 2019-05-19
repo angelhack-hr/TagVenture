@@ -9,8 +9,10 @@
     "@babel/preset-react": "^7.0.0",
     "aws-amplify": "^1.1.28",
     "css-loader": "^2.1.1",
+    "glamor": "^2.20.40",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "sha.js": "^2.4.11",
     "style-loader": "^0.23.1"
   },
   "devDependencies": {
