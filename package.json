@@ -11,6 +11,7 @@
     "css-loader": "^2.1.1",
     "glamor": "^2.20.40",
     "react": "^16.8.6",
+    "react-cursor-position": "^3.0.3",
     "react-dom": "^16.8.6",
     "react-google-maps": "^9.4.5",
     "recompose": "^0.30.0",

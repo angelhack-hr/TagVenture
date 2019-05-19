@@ -1,6 +1,7 @@
 import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import ReactCursorPosition from 'react-cursor-position';
 
 let message = "You are not at this location";
 let x = 37.787799;
@@ -20,7 +21,7 @@ let radiusHelper = (lon1, lat1, lon2, lat2) => {
           Math.sin(dLon/2) * Math.sin(dLon/2); 
   let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
   let d = R * c; // Distance in km
-  console.log("firing", d);
+  console.log(d);
   return d;
 }
 
@@ -33,29 +34,33 @@ const MapComponent = compose(
   }),
   withScriptjs,
   withGoogleMap
-)((props) =>
+)((props) => 
   <GoogleMap
     defaultZoom={13}
     defaultCenter={{ lat: 37.7749, lng: -122.410344 }}
   >
   
-  {props.markers.map(marker => (
-    
+  {props.markers.map((marker, index) => (
+ 
       <Marker
       title={marker.title}
       position={{ lat: marker.latitude, lng: marker.longitude }}
       key={marker.id}
-      onClick={props.handleMarkerClick}
-    />
+      onMouseOver={props._onMouseMove}
+      />
+   
+
   ))}
  
   </GoogleMap>
+
 );
 
 export default class MyMapComponent extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      position:{ x: 0, y: 0 },
       isMarkerShown: true,
       markers: [
       {
@@ -96,8 +101,6 @@ export default class MyMapComponent extends React.PureComponent {
           userLocation: { lat: latitude, lng: longitude },
           loading: false
         });
-
-       
        
       },
       () => {
@@ -123,21 +126,31 @@ export default class MyMapComponent extends React.PureComponent {
 
   }
 
-  handleMarkerClick (e) {
-    console.log(e)
+  // handleMarkerClick (e) {
+  //   console.log(this.state.markers)
+  // }
+
+  _onMouseMove(e) {
+    console.log("fire", e.nativeEvent)
+    this.setState({position:{ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY }});
+    
   }
 
 
   render() {
     return (
+      <ReactCursorPosition>
       <MapComponent
         key={99}
         isMarkerShown={this.state.isMarkerShown}
         markers={this.state.markers}
         userLocation={this.state.userLocation} 
         confirmCheckpoint={this.confirmCheckpoint.bind(this)}  
-        handleMarkerClick={this.handleMarkerClick.bind(this)}
+        // handleMarkerClick={this.handleMarkerClick.bind(this)}
+        _onMouseMove={this._onMouseMove.bind(this)}
       />
+      </ReactCursorPosition>
+      
     )
   }
 }
