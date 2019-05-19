@@ -2,12 +2,16 @@
   "name": "amplify-js-app",
   "version": "1.0.0",
   "description": "TagVenture",
+  "license": "MIT",
+  "private": true,
   "dependencies": {
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "aws-amplify": "^1.1.28",
+    "css-loader": "^2.1.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
