@@ -2,26 +2,7 @@ import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 
-const testData = [
-      {
-        id: 100,
-        title:"first checkpoint",
-        latitude: 37.787799,
-        longitude: -122.396595
-      },
-      {
-        id: 200,
-        title:"second checkpoint",
-        latitude: 37.785347,
-        longitude: -122.402382
-      },
-      {
-        id: 300,
-        title:"third checkpoint",
-        latitude: 37.795347,
-        longitude: -122.412382
-      }
-      ]
+let message = "You are not at this location";
 
 const MapComponent = compose(
   withProps({
@@ -47,7 +28,7 @@ const MapComponent = compose(
       onClick={props.onMarkerClick}
     />
   ))}
- {props.isMarkerShown && <Marker position={{ lat: 38, lng: 123 }} />}
+ {props.isMarkerShown && <Marker position={props.userLocation} />}
   </GoogleMap>
 );
 
@@ -75,13 +56,28 @@ export default class MyMapComponent extends React.PureComponent {
         latitude: 37.795347,
         longitude: -122.412382
       }
-      ]
+      ],
+      loading: false,
+      userLocation: { lat: 32, lng: 32 }
 
     };
   }
 
   componentDidMount() {
     //this.delayedShowMarker()
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        
+        this.setState({
+          userLocation: { lat: latitude, lng: longitude },
+          loading: false
+        });
+      },
+      () => {
+        this.setState({ loading: false });
+      }
+    );
   }
 
   // delayedShowMarker() {
@@ -92,12 +88,12 @@ export default class MyMapComponent extends React.PureComponent {
 
   handleMarkerClick() {
     console.log('ping')
-    alert("test")
+    alert(message)
     this.setState({ isMarkerShown: false })
     //this.delayedShowMarker()
   }
 
-  showUserLocation() {
+  isAtCheckpoint() {
 
   }
 
@@ -107,6 +103,7 @@ export default class MyMapComponent extends React.PureComponent {
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick.bind(this)}
         markers={this.state.markers}
+        userLocation={this.state.userLocation}
       />
     )
   }
