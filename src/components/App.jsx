@@ -1,4 +1,5 @@
 import React from 'react';
+import SignUp from './SignUp'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends React.Component {
     return (
       <div>
         Hello TagVenture
+        <SignUp />
       </div>
     )
   }
