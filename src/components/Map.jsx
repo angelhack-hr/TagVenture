@@ -32,7 +32,7 @@ const MapComponent = compose(
     defaultCenter={{ lat: 37.7749, lng: -122.410344 }}
   >
   
-  {testData.map(marker => (
+  {props.markers.map(marker => (
     
       <Marker
       title={marker.title}
@@ -54,16 +54,16 @@ export default class MyMapComponent extends React.PureComponent {
       {
         id: 100,
         title:"first checkpoint",
-        latitude: 37.787876,
-        longitude: -122.396627
+        latitude: 37.787799,
+        longitude: -122.396595
       },
       {
         id: 200,
-        title:"current user",
-        latitude: 37.784946,
-        longitude: -122
+        title:"second checkpoint",
+        latitude: 37.785347,
+        longitude: -122.402382
       }
-      ],
+      ]
 
     };
   }
