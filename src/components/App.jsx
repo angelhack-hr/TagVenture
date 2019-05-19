@@ -1,5 +1,6 @@
 import React from 'react';
 import MyMapComponent from './Map.jsx';
+import SignUp from './SignUp'
 
 class App extends React.Component {
   constructor(props) {
@@ -14,11 +15,12 @@ class App extends React.Component {
     return (
       <div>
         <div>
-          Hello TagVenture
+          <SignUp />
         </div>
         <div>
           <MyMapComponent />
         </div>
+       
       </div>
 
     )

@@ -53,5 +53,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin(['index.html']),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.json']
+  }
 };
